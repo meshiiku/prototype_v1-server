@@ -1,0 +1,7 @@
+#!/bin/bash
+if  pg_ctl -D ./pgdata status > /dev/null 2>&1; then
+  echo "PostgreSQLサーバーを停止中..."
+  pg_ctl -D ./pgdata stop # Postgreが生きてたら止める
+else
+  echo "PostgreSQLサーバーは起動していません。"
+fi

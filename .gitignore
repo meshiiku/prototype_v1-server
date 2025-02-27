@@ -1,2 +1,7 @@
 # deps
+.direnv
+pgdata
+
+logs
+
 node_modules/
