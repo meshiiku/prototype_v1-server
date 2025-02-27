@@ -1,2 +1,2 @@
 #!/bin/bash
-bun run dev --host
+bunx dotenv -e .env.dev -- bun run dev --host
