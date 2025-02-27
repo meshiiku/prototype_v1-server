@@ -4,8 +4,13 @@
     "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.40",
+    "@langchain/google-genai": "^0.1.9",
+    "@langchain/openai": "^0.4.4",
     "@prisma/client": "^6.4.1",
-    "hono": "^4.7.2"
+    "hono": "^4.7.2",
+    "langchain": "^0.3.19",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/bun": "latest",
