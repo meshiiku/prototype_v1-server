@@ -3,6 +3,7 @@ import { jwt, sign } from "hono/jwt";
 import { prismaClient } from "../constants";
 
 // WARNING: 開発用にハードコーディング
+// WARNING: 例外処理関連が甘い
 const JWT_SECRET = "HOGEHOGE";
 
 type JWTPayload = {
@@ -36,28 +37,50 @@ function generateRandomUserName() {
 
 const accountsApp = new Hono();
 accountsApp
-  // jwt認証をかける
+  // authより下はjwt認証をかける
   .use(
     "/auth/*",
     jwt({
       secret: JWT_SECRET,
     }),
   )
+  // ログイン確認用
   .get("/auth/check", (c) => {
     return c.text("Ok! you are logged in!");
   })
+  .get("/users/search", async (c) => {
+    const users = await prismaClient.user.findMany({
+      where: {
+        user_id: { contains: c.req.query("q"), mode: "insensitive" },
+      },
+      select: {
+        user_id: true,
+        display_name: true,
+        hashtags: true,
+      },
+    });
+    if (users) return c.json(users);
+    else return c.json({}, 500);
+  })
   .get("/users/:user_id", async (c) => {
+    // ユーザーの取得
     const user = await prismaClient.user.findFirst({
       where: {
         user_id: c.req.param("user_id"),
       },
+      select: {
+        user_id: true,
+        display_name: true,
+        hashtags: true,
+      },
     });
+    // ユーザ発見したらjsonで公開していい内容だけ返す
     if (user)
       return c.json({
         display_name: user.display_name,
         id: user.user_id,
       });
-    else return c.json({});
+    else return c.json({}, 500);
   })
   .get("/anonymous", async (c) => {
     // 適当にユーザー名を生成する
@@ -68,6 +91,7 @@ accountsApp
       const user = await prismaClient.user.create({
         data: {
           display_name: `${userName}`,
+          hashtags: ["新規", "テストユーザ", "開発途中 "],
           password: `aiueo`,
           user_id: `${userName}`,
         },
