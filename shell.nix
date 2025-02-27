@@ -3,7 +3,7 @@
 }:
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    nodejs_22
+    bun
     zsh
     starship
     postgresql
@@ -12,8 +12,8 @@ pkgs.mkShell {
   shellHook = ''
     echo  "パッケージをインストール中..."
     mkdir logs
-    npm i 
-    npm --version
+    bun i 
+    bun --version
     # データベース存在チェック
     if [ ! -d "./pgdata" ]; then
       echo "データベースを初期化中..."
