@@ -1,2 +1,2 @@
 #!/bin/bash
-bun run dev
+bun run dev --host
