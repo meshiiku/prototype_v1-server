@@ -17,8 +17,3 @@ export const hotpepperTool = new DynamicStructuredTool({
     return res.json();
   },
 });
-export const call_api = () => {
-  const res = await fetch(
-    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.HOTPEPPER_API_KEY}&lat=${lat}&lng=${lng}&range=5&format=json&count=30`,
-  );
-};
