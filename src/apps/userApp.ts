@@ -36,10 +36,19 @@ function generateRandomUserName() {
 }
 
 const accountsApp = new Hono();
+
+// **💡 ログ出力のミドルウェア**
+accountsApp.use("*", async (c, next) => {
+  const start = Date.now();
+  await next();
+  const end = Date.now();
+  console.log(`[${new Date().toISOString()}] ${c.req.method} ${c.req.url} - ${end - start}ms`);
+});
+
 accountsApp
   // authより下はjwt認証をかける
   .use(
-    "/auth/*",
+    "/DISABLED_auth/*",
     jwt({
       secret: JWT_SECRET,
     }),

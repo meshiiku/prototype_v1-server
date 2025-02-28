@@ -6,3 +6,4 @@ pgdata
 logs
 
 node_modules/
+.env
