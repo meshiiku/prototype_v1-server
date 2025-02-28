@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import accountsApp from "./apps/userApp";
 import { serveStatic } from "hono/bun";
-import { agentApp } from "./apps/agentApp";
+import agentApp from "./apps/agentApp";
 
 const app = new Hono();
 
