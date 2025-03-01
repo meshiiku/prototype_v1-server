@@ -108,3 +108,4 @@ Terraform では、以下のディレクトリ構成で管理します。
   - [ ] **ローカル環境での Azure Functions のデプロイ・デバッグ**
   - [ ] **ローカル環境での Azure Container Apps の開発**
   - [ ] **Azure CLI による Terraform の適用・検証**
+- [ ] **LangChainにElasticsearchを用いたRAGを実装**
